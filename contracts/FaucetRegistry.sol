@@ -14,6 +14,7 @@ contract FaucetRegistry {
 	mapping (address => Allowance) public allowances;
 
 	event Redeem(address indexed from, address indexed to, uint amount);
+	event SetAllowance(address indexed user, uint amount);
 
 	modifier isOwner() {
 		if (msg.sender == owner) {
@@ -35,6 +36,7 @@ contract FaucetRegistry {
 
 	function setAllowance(address _user, uint _allowance) isOwner {
 		allowances[_user].amount = _allowance;
+		SetAllowance(_user, _allowance);
 	}
 
 	function setOwner(address _owner) isOwner {
