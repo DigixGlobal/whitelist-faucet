@@ -53,16 +53,18 @@ router.get('/:address', async (ctx, next) => {
   const cooldown = await faucetRegistry.cooldown.call();
 
   ctx.body = `
-Kovan Ether Faucet
-==================
+Ether Faucet
+============
 
 Provided by DigixGlobal https://digix.io
 
-  `;
+Target Network: ${targetChain}
+
+`;
   if (canRedeem) {
     // try to redeem! update the registry, will throw if there's any issues
     try {
-      ctx.body += `Processing redemption for ${address}...\n`;
+      ctx.body += `Processing redemption for ${address}...\n\n`;
       await faucetRegistry.redeem(address, { from });
       // update the info
       [balance, lastUsed] = await faucetRegistry.allowances.call(address);
@@ -73,7 +75,7 @@ Provided by DigixGlobal https://digix.io
     }
     // then send the tx on mainnet to the user
     const tx = await a.callback(web3.target.eth.sendTransaction, { to: address, value: balance, from });
-    ctx.body += `✅ Redemption of ${web3.target.toBigNumber(balance).shift(-18).toFormat()} Ether Processed!\n TX: ${tx}\n`;
+    ctx.body += `✅ Redemption of ${web3.target.toBigNumber(balance).shift(-18).toFormat()} Ether Processed!\n\nTX: ${tx}\n`;
   } else {
     const timeSinceUsed = ((new Date() / 1000) - lastUsed);
     const diff = cooldown - timeSinceUsed;
@@ -84,10 +86,9 @@ Provided by DigixGlobal https://digix.io
 faucet: ${faucetRegistry.address}
 recipient: ${address}
 allowance: ${web3.target.toBigNumber(balance).shift(-18).toFormat()} ETH
-cooldown period: ${cooldown / 60} minutes
+cooldown: ${cooldown / 60} minutes
 last used: ${new Date(lastUsed * 1000).toLocaleString()}
 db network: ${dbChain}
-target network: ${targetChain}
   `;
   return next();
 });
