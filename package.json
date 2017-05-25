@@ -1,0 +1,22 @@
+{
+  "name": "@digix/whitelist-faucet",
+  "version": "0.0.1",
+  "description": "Faucet contract using on-chain contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@digix/tempo": "^0.2.0",
+    "@digix/truffle-lightwallet-provider": "0.0.12",
+    "awaiting": "^3.0.0",
+    "babel-preset-env": "^1.5.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1"
+  }
+}

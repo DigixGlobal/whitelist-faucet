@@ -1,0 +1,122 @@
+{
+  "contract_name": "FaucetRegistry",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "setOwner",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_cooldown",
+          "type": "uint256"
+        }
+      ],
+      "name": "setCooldown",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "cooldown",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "redeem",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_allowance",
+          "type": "uint256"
+        }
+      ],
+      "name": "setBalance",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "payable": false,
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Redeem",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000c57fe5b5b60008054600160a060020a03191633600160a060020a03161790555b5b6102d4806100396000396000f3006060604052361561005c5763ffffffff60e060020a60003504166313af403581146100765780634fc3f41a14610094578063787a08a6146100a95780638da5cb5b146100cb57806395a2251f146100f7578063e30443bc14610115575b341561006457fe5b6100745b61007133610136565b5b565b005b341561007e57fe5b610074600160a060020a0360043516610200565b005b341561009c57fe5b610074600435610238565b005b34156100b157fe5b6100b961025a565b60408051918252519081900360200190f35b34156100d357fe5b6100db610260565b60408051600160a060020a039092168252519081900360200190f35b34156100ff57fe5b610074600160a060020a0360043516610136565b005b341561011d57fe5b610074600160a060020a036004351660243561026f565b005b600160a060020a038116600090815260026020526040812080549091901161015e5760006000fd5b8060010154600154420310156101745760006000fd5b600160a060020a038216600081815260026020526040808220426001909101558354905181156108fc0292818181858888f1935050505015156101b75760006000fd5b80546040805191825251600160a060020a0333811692908516917fd12200efa34901b99367694174c3b0d32c99585fdf37c7c26892136ddd0836d99181900360200190a35b5050565b60005433600160a060020a03908116911614156102335760008054600160a060020a031916600160a060020a0383161790555b5b5b50565b60005433600160a060020a03908116911614156102335760018190555b5b5b50565b60015481565b600054600160a060020a031681565b60005433600160a060020a03908116911614156101fc57600160a060020a03821660009081526002602052604090208190555b5b5b50505600a165627a7a723058200bb0383e1bdfae9fbcb5ed7b0cfe392f52cafd7634ee38128251b32e598a31d50029",
+  "networks": {},
+  "schema_version": "0.0.5",
+  "updated_at": 1495726949957
+}
