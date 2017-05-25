@@ -50,6 +50,8 @@ router.get('/:address', async (ctx, next) => {
   // check the smart contract
   let [balance, lastUsed] = await faucetRegistry.allowances.call(address);
   let canRedeem = await faucetRegistry.canRedeem.call(address);
+  const cooldown = await faucetRegistry.cooldown.call();
+
   ctx.body = `
 Kovan Ether Faucet
 ==================
@@ -71,18 +73,18 @@ Provided by DigixGlobal https://digix.io
     }
     // then send the tx on mainnet to the user
     const tx = await a.callback(web3.target.eth.sendTransaction, { to: address, value: balance, from });
-    ctx.body += `✅ Redemption of ${balance / 1e18} Ether Processed!\n TX: ${tx}\n`;
+    ctx.body += `✅ Redemption of ${web3.target.toBigNumber(balance).shift(-18).toFormat()} Ether Processed!\n TX: ${tx}\n`;
   } else {
-    const cooldown = await faucetRegistry.cooldown.call();
     const timeSinceUsed = ((new Date() / 1000) - lastUsed);
     const diff = cooldown - timeSinceUsed;
     const minutes = diff <= 0 ? 0 : Math.ceil(diff / 60);
-    ctx.body += `❌ Could not redeem - cooldown runs out in ${minutes} mins\n`;
+    ctx.body += `❌ Could not redeem - cooldown runs out in ${minutes} minutes\n`;
   }
   ctx.body += `
 faucet: ${faucetRegistry.address}
-address: ${address}
-balance: ${balance}
+recipient: ${address}
+allowance: ${web3.target.toBigNumber(balance).shift(-18).toFormat()} ETH
+cooldown period: ${cooldown / 60} minutes
 last used: ${new Date(lastUsed * 1000).toLocaleString()}
 db network: ${dbChain}
 target network: ${targetChain}
