@@ -6,7 +6,7 @@ const contract = require('truffle-contract');
 const config = require('../truffle.js');
 
 const dbChain = 'kovan';
-const targetChain = 'kovan';
+const targetChain = process.argv[2] || 'kovan';
 
 const web3 = {
   db: new Web3(config.networks[dbChain].provider),
