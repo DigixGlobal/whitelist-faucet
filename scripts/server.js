@@ -40,7 +40,7 @@ FaucetRegistry.deployed().then((f) => {
 const app = new Koa();
 const router = new Router();
 
-router.get('/:address', async (ctx, next) => {
+router.get('/faucet/:address', async (ctx, next) => {
   const { address } = ctx.params;
   // validate
   if (!web3.db.isAddress(address)) {

@@ -39,6 +39,18 @@ contract FaucetRegistry {
 		SetAllowance(_user, _allowance);
 	}
 
+	function setManyAllowances(uint _allowance, address _0, address _1, address _2, address _4, address _5, address _6, address _7, address _8, address _9) {
+		setAllowance(_0, _allowance);
+		setAllowance(_1, _allowance);
+		setAllowance(_2, _allowance);
+		setAllowance(_4, _allowance);
+		setAllowance(_5, _allowance);
+		setAllowance(_6, _allowance);
+		setAllowance(_7, _allowance);
+		setAllowance(_8, _allowance);
+		setAllowance(_9, _allowance);
+	}
+
 	function setOwner(address _owner) isOwner {
 		owner = _owner;
 	}

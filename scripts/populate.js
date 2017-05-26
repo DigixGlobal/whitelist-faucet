@@ -2,7 +2,7 @@
 /*
 const data = require('/Users/chris/code/digix/etc-refund/scripts/data/balances-3765660-1495722676586.json');
 const p = require('./scripts/populate.js');
-p(web3, FaucetRegistry, data);
+p(FaucetRegistry, data);
 */
 
 const a = require('awaiting');
@@ -13,13 +13,16 @@ module.exports = async (Contract, data) => {
   const contract = Contract.at(Contract.address);
   const { balances } = data;
   const keys = Object.keys(balances);
+  const step = 9;
   console.log(`Populating ${keys.length} balances...`);
   let i = 0;
-  await a.map(keys, 10, (key) => {
-    i += 1;
+  const batches = new Array(Math.floor(keys.length / step)).fill().map((n, j) => keys.slice(j * step, (j * step) + step));
+  await a.map(batches, 16, (batch) => {
+    i += 10;
     const j = i;
-    return contract.setAllowance(key, fundAmount).then(({ tx }) => {
-      console.log(`[${j}/${keys.length}] ${key} ${tx} -> ${fundAmount / 1e18} Ether`);
+    return contract.setManyAllowances(fundAmount, ...batch).then(({ tx }) => {
+      const string = batch.map(s => `${s.substring(2, 5)}.${s.substring(39, 42)}`).join(' ');
+      console.log(`[${j}/${keys.length}] ${string} ${tx} -> ${fundAmount / 1e18} Ether`);
     });
   });
 };

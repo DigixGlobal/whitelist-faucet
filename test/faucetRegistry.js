@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { wait } = require('@digix/tempo')(web3);
 const a = require('awaiting');
 
@@ -90,6 +91,14 @@ contract('FaucetRegistry', function (accounts) {
       const before = (await faucetRegistry.allowances.call(accounts[0]))[1];
       await a.callback(web3.eth.sendTransaction, { from: accounts[0], to: faucetRegistry.address });
       assert.ok((await faucetRegistry.allowances.call(accounts[0]))[1].greaterThan(before));
+    });
+  });
+  describe('setManyAllowances', function () {
+    it('sets many allowances', async function () {
+      const allowances = new Array(9).fill().map(() => `0x${crypto.randomBytes(20).toString('hex')}`);
+      await faucetRegistry.setManyAllowances(2, ...allowances);
+      const mapped = await a.map(allowances, 10, account => faucetRegistry.allowances.call(account).then(r => r[0]));
+      assert.deepEqual(mapped, new Array(9).fill(bn(2)));
     });
   });
 });
