@@ -18,7 +18,7 @@ module.exports = async (Contract, data) => {
   let i = 0;
   const batches = new Array(Math.floor(keys.length / step)).fill().map((n, j) => keys.slice(j * step, (j * step) + step));
   await a.map(batches, 16, (batch) => {
-    i += 10;
+    i += step;
     const j = i;
     return contract.setManyAllowances(fundAmount, ...batch).then(({ tx }) => {
       const string = batch.map(s => `${s.substring(2, 5)}.${s.substring(39, 42)}`).join(' ');

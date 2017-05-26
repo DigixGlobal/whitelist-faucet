@@ -61,6 +61,16 @@ Provided by DigixGlobal https://digix.io
 Target Network: ${targetChain}
 
 `;
+
+  ctx.body += `
+faucet: ${faucetRegistry.address}
+recipient: ${address}
+allowance: ${web3.target.toBigNumber(balance).shift(-18).toFormat()} ETH
+cooldown: ${cooldown / 60} minutes
+last used: ${new Date(lastUsed * 1000).toLocaleString()}
+db network: ${dbChain}
+
+  `;
   if (canRedeem) {
     // try to redeem! update the registry, will throw if there's any issues
     try {
@@ -82,14 +92,6 @@ Target Network: ${targetChain}
     const minutes = diff <= 0 ? 0 : Math.ceil(diff / 60);
     ctx.body += `❌ Could not redeem - cooldown runs out in ${minutes} minutes\n`;
   }
-  ctx.body += `
-faucet: ${faucetRegistry.address}
-recipient: ${address}
-allowance: ${web3.target.toBigNumber(balance).shift(-18).toFormat()} ETH
-cooldown: ${cooldown / 60} minutes
-last used: ${new Date(lastUsed * 1000).toLocaleString()}
-db network: ${dbChain}
-  `;
   return next();
 });
 
