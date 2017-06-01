@@ -264,56 +264,10 @@
         }
       },
       "links": {},
-      "address": "0xc03d6e3f2666d7b4a66f979a95dc4a127410e6a9",
-      "updated_at": 1495759809203
-    },
-    "1496338580439": {
-      "events": {
-        "0xd12200efa34901b99367694174c3b0d32c99585fdf37c7c26892136ddd0836d9": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "name": "to",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "Redeem",
-          "type": "event"
-        },
-        "0x3e7279a3d1ac30db40e525d6391b8472d3753835b7ccdd3fb769fe11137946d2": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "name": "user",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "SetAllowance",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xaa2b90455b115a095ed5362bb569dedbd65a019e",
-      "updated_at": 1496339556539
+      "address": "0x1cee21ea62e661fa41a0da878d6c03cef262076c",
+      "updated_at": 1496339984842
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1496339556539
+  "updated_at": 1496339984842
 }
