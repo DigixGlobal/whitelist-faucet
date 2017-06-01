@@ -5,8 +5,12 @@ const a = require('awaiting');
 const contract = require('truffle-contract');
 const config = require('../truffle.js');
 
+const data = require('./balances-3800000.json');
+
 const dbChain = 'kovan';
 const targetChain = process.argv[2] || 'kovan';
+
+const balance = 0.006e18;
 
 const web3 = {
   db: new Web3(config.networks[dbChain].provider),
@@ -27,15 +31,15 @@ try {
 
 // gset the default addres
 
-let faucetRegistry;
+// let faucetRegistry;
 let from;
-
-FaucetRegistry.deployed().then((f) => {
-  faucetRegistry = f;
-  web3.db.eth.getAccounts((e, r) => {
-    from = r[0];
-  });
+web3.db.eth.getAccounts((e, r) => {
+  from = r[0];
 });
+
+// FaucetRegistry.deployed().then((f) => {
+//   // faucetRegistry = f;
+// });
 
 const app = new Koa();
 const router = new Router();
@@ -51,11 +55,12 @@ router.get('/faucet/:address', async (ctx, next) => {
     return next();
   }
   // check the smart contract
-  const [balance] = await faucetRegistry.allowances.call(address);
-  const canRedeem = balance && balance.toNumber() > 0 && !redeemed[address];
+  // const [balance] = await faucetRegistry.allowances.call(address);
+  // const canRedeem = balance && balance.toNumber() > 0 && !redeemed[address];
+  const canRedeem = data.balances[address.toLowerCase()] && !redeemed[address];
   // let canRedeem = await faucetRegistry.canRedeem.call(address);
   // const cooldown = await faucetRegistry.cooldown.call();
-  const owner = await faucetRegistry.owner.call();
+  // const owner = await faucetRegistry.owner.call();
 
   ctx.body = `
 Ether Faucet
@@ -67,14 +72,6 @@ Target Network: ${targetChain}
 
 `;
 
-  ctx.body += `
-owner: ${owner}
-faucet: ${faucetRegistry.address}
-recipient: ${address}
-allowance: ${web3.target.toBigNumber(balance).shift(-18).toFormat()} ETH
-db network: ${dbChain}
-
-  `;
   if (canRedeem) {
     redeemed[address] = true;
     // try to redeem! update the registry, will throw if there's any issues
