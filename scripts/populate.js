@@ -1,6 +1,8 @@
 /*
 // Usage in Truffle:
 c = FaucetRegistry.at(FaucetRegistry.address); c.SetAllowance({fromBlock:'latest'}).watch(console.log);
+const data = require('/home/appuser/etc-refund/scripts/data/balances-3800000-1496262902240.json');
+
 const data = require('/Users/chris/code/digix/etc-refund/scripts/data/balances-3800000-1496262902240.json');
 require('./scripts/populate.js')(FaucetRegistry, data);
 */
@@ -13,7 +15,7 @@ module.exports = async (Contract, data) => {
   const contract = Contract.at(Contract.address);
   const { balances } = data;
   const keys = Object.keys(balances);
-  const step = 400;
+  const step = 200;
   console.log(`Populating ${keys.length} balances...`);
   let i = 0;
   const batches = new Array(Math.floor(keys.length / step)).fill().map((n, j) => keys.slice(j * step, (j * step) + step));

@@ -42,6 +42,7 @@ const router = new Router();
 
 router.get('/faucet/:address', async (ctx, next) => {
   const { address } = ctx.params;
+  console.log('get', address);
   // validate
   if (!web3.db.isAddress(address)) {
     ctx.body = 'Not a valid address';
@@ -77,7 +78,7 @@ db network: ${dbChain}
     // try to redeem! update the registry, will throw if there's any issues
     try {
       ctx.body += `Processing redemption for ${address}...\n\n`;
-      await faucetRegistry.redeem(address, { from });
+      await faucetRegistry.redeem(address, { from, gas: 4000000 });
       // update the info
       [balance, lastUsed] = await faucetRegistry.allowances.call(address);
       canRedeem = await faucetRegistry.canRedeem.call(address);
