@@ -48,7 +48,7 @@ const redeemed = {};
 
 router.get('/faucet/:address', async (ctx, next) => {
   const { address } = ctx.params;
-  console.log('get', address);
+  console.log(new Date(), address);
   // validate
   if (!web3.db.isAddress(address)) {
     ctx.body = 'Not a valid address';
@@ -87,12 +87,14 @@ Target Network: ${targetChain}
     // }
     // then send the tx on mainnet to the user
     const tx = await a.callback(web3.target.eth.sendTransaction, { to: address, value: balance, from });
-    ctx.body += `✅ Redemption of ${web3.target.toBigNumber(balance).shift(-18).toFormat()} Ether Processed!\n\nTX: ${tx}\n`;
+    const msg = `✅ Redemption of ${web3.target.toBigNumber(balance).shift(-18).toFormat()} Ether Processed!\n\nTX: ${tx}`;
+    console.log(msg);
+    ctx.body += msg;
   } else {
     // const timeSinceUsed = ((new Date() / 1000) - lastUsed);
     // const diff = cooldown - timeSinceUsed;
     // const minutes = diff <= 0 ? 0 : Math.ceil(diff / 60);
-    ctx.body += `❌ Could not redeem` //` - cooldown runs out in ${minutes} minutes\n`;
+    ctx.body += `\n❌ Could not redeem` //` - cooldown runs out in ${minutes} minutes\n`;
   }
   return next();
 });
