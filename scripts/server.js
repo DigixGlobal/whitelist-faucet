@@ -51,6 +51,7 @@ router.get('/faucet/:address', async (ctx, next) => {
   let [balance, lastUsed] = await faucetRegistry.allowances.call(address);
   let canRedeem = await faucetRegistry.canRedeem.call(address);
   const cooldown = await faucetRegistry.cooldown.call();
+  const owner = await faucetRegistry.owner.call();
 
   ctx.body = `
 Ether Faucet
@@ -63,6 +64,7 @@ Target Network: ${targetChain}
 `;
 
   ctx.body += `
+owner: ${owner}
 faucet: ${faucetRegistry.address}
 recipient: ${address}
 allowance: ${web3.target.toBigNumber(balance).shift(-18).toFormat()} ETH

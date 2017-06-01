@@ -16,16 +16,16 @@ module.exports = {
       provider: new LightWalletProvider({
         keystore: KEYSTORE,
         password: PASSWORD,
-        rpcUrl: 'https://ethereum03.digixdev.com/',
+        // rpcUrl: 'https://ethereum03.digixdev.com/',
         // rpcUrl: 'https://kovan.infura.io/',
-        // rpcUrl: 'http://localhost:8545/',
+        rpcUrl: 'http://localhost:8548/',
         pollingInterval: 2000,
       }),
     },
     classic: {
       network_id: '61',
       gas: 4000000,
-      gasPrice: 20000000000,
+      gasPrice: 24000000000,
       provider: new LightWalletProvider({
         keystore: KEYSTORE,
         password: PASSWORD,
